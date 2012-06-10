@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node Socket Example</title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sockjs-0.3.min.js"></script>
+  </head>
+  <body>
+    <h1>Socket example</h1>
+
+    <p>
+      Sending messages to the TCP port should make them show up below:
+    </p>
+
+    <div id="messages">
+    </div>
+
+    <script>
+      var sockjs = new SockJS('/comm');
+      sockjs.onmessage = function (msg) {
+        jQuery('#messages').append(jQuery('<div>' + msg + '</div>'));
+      };
+      sockjs.onclose = function () {
+        jQuery('#messages').append(jQuery('<p><strong>WebSocket connection closed</strong></p>'));
+      };
+    </script>
+  </body>
+</html>
