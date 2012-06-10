@@ -12,5 +12,8 @@
     "coffee-script": "1.x.x",
     "sockjs": "0.3.x",
     "express": "2.5.x"
+  },
+  "bin": {
+    "node-socket-repeater": "./app.js"
   }
 }

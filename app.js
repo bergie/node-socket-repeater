@@ -5,7 +5,7 @@ var path = require('path');
 
 if (process.argv.length < 4) {
   console.log("Run with:");
-  console.log("$ ./app.js HTTP_PORT TCP_PORT [FOLDER] [DEBUG]");
+  console.log("$ node-socket-repeater HTTP_PORT TCP_PORT [FOLDER] [DEBUG]");
   process.exit();
 }
 
