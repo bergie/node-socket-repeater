@@ -39,3 +39,9 @@ Now anything you write in the telnet session will be shown on the web page insta
 If you want to send data from the browser, you can run the following in your JavaScript console:
 
     sockjs.send('My cool message');
+
+### Servent example
+
+There is another implementation of the repeater as well, called _servent_ (server-client). This one provides the HTTP WebSocket server, but instead of being the TCP server process itself, it connects as a client to another TCP server and repeats messages from there to the WebSocket clients.
+
+    $ ./servent.js 80 3000 example
