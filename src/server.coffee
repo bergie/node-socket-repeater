@@ -2,20 +2,20 @@ http = require 'express'
 sockjs = require 'sockjs'
 net = require 'net'
 
-exports.createServers = (httpPort, tcpPort, folder = null, debug = false) ->
+clients = []
+
+# Broadcast a message to all other connected clients
+exports.broadcast = broadcast = (msg, sender) ->
+  for client in clients
+    continue if client is sender
+    client.write msg
+
+exports.createHttp = (httpPort, folder = null, debug = false) ->
   folder = process.cwd() unless folder
 
   server = http.createServer()
   server.use http.static folder
   server.use http.directory folder
-
-  clients = []
-
-  # Broadcast a message to all other connected clients
-  broadcast = (msg, sender) ->
-    for client in clients
-      continue if client is sender
-      client.write msg
 
   webSocket = sockjs.createServer()
   webSocket.on 'connection', (client) ->
@@ -36,6 +36,7 @@ exports.createServers = (httpPort, tcpPort, folder = null, debug = false) ->
   server.listen httpPort, ->
     console.log "HTTP/WebSockets server listening at port #{httpPort}"
 
+exports.createTcp = (tcpPort, debug = false) ->
   tcp = net.createServer (client) ->
     client.setEncoding 'utf-8'
 
@@ -52,3 +53,7 @@ exports.createServers = (httpPort, tcpPort, folder = null, debug = false) ->
 
   tcp.listen tcpPort, ->
     console.log "Socket server listening at port #{tcpPort}"
+
+exports.createServers = (httpPort, tcpPort, folder = null, debug = false) ->
+  exports.createHttp httpPort, folder, debug
+  exports.createTcp tcpPort, debug
