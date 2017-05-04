@@ -1,6 +1,8 @@
 Socket repeater for Node.js
 ===========================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/bergie/node-socket-repeater.svg)](https://greenkeeper.io/)
+
 This simple Node.js application serves the purpose of passing messages between connected TCP and WebSocket clients. Any message received from one of them is automatically passed to all others.
 
 ## Installation
